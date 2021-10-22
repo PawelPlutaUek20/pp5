@@ -1,7 +1,9 @@
 package pl.ppluta.letters;
 
 import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
 public class CharCounterTest {
     @Test
     public void itCountsCharsInInputString() {
