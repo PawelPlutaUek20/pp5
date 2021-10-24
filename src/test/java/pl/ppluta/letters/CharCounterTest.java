@@ -8,7 +8,7 @@ public class CharCounterTest {
     @Test
     public void itCountsCharsInInputString() {
         //Arrange
-        String inputStr = "ala ma kota a kot ma mysz";
+        String inputStr = "Ala ma kota a kot ma mysz";
         CharCounter charCounter = new CharCounter();
         //Act
         int charsCount = charCounter.count("a", inputStr);

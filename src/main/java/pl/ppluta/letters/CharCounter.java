@@ -2,6 +2,6 @@ package pl.ppluta.letters;
 
 public class CharCounter {
     public int count(String charToBeCounted, String inputStr) {
-        return inputStr.length() - inputStr.replace(charToBeCounted.toLowerCase(), "").length();
+        return inputStr.length() - inputStr.toLowerCase().replace(charToBeCounted.toLowerCase(), "").length();
     }
 }
