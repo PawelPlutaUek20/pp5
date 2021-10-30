@@ -8,7 +8,6 @@ import java.math.BigDecimal;
 import static  org.junit.jupiter.api.Assertions.*;
 
 public class CreditCardTest {
-    private Object CreditBelowLimitException;
 
     @Test
     public void itAllowsAssignCreditLimitToCard() {
@@ -23,15 +22,32 @@ public class CreditCardTest {
     @Test
     public void limitBelowThresholdCantBeAssigned() {
         CreditCard card = new CreditCard("1234-5678");
-        card.assignCredit(BigDecimal.valueOf(50));
-        Assertions.fail("Exception should be thrown");
+        try {
+            card.assignCredit(BigDecimal.valueOf(50));
+            Assertions.fail("Exception should be thrown");
+        } catch (CreditBelowLimitException e){
+            assertTrue(true);
+        }
+
     }
 
     @Test
-    public void randomFunction() {
+    public void limitBelowThresholdCantBeAssignedV2() {
         CreditCard card = new CreditCard("1234-5678");
+        assertThrows(CreditBelowLimitException.class, () -> card.assignCredit(BigDecimal.valueOf((50))));
+
+    }
+
+    @Test
+    public void itAllowWithdraw() {
+        CreditCard card = new CreditCard("1234-5678");
+
         card.assignCredit(BigDecimal.valueOf(1000));
         card.withdraw(BigDecimal.valueOf(500));
-        assertEquals(BigDecimal.valueOf(500), card.getBalance());
+        card.withdraw(BigDecimal.valueOf(500));
+
+        assertThrows(NotEnoughMoneyException.class, () -> card.withdraw(BigDecimal.valueOf(500)));
+
+        assertEquals(BigDecimal.valueOf(0), card.getBalance());
     }
 }

@@ -8,7 +8,7 @@ public class BlablaTest {
         String cardNumber1 = thereIsCardWithLimitInTheSystem(1000);
         String cardNumber2 = thereIsCardWithLimitInTheSystem(2000);
 
-        BankingSystem system = thereIsBnakingSystem();
+        BankingSystem system = thereIsBankingSystem();
 
         system.handleWithdraw(cardNumber1, 500);
         system.handleWithdraw(cardNumber2, 1000);
@@ -17,7 +17,7 @@ public class BlablaTest {
         balanceOfCardEquals(cardNumber2, 1000);
     }
 
-    private BankingSystem thereIsBnakingSystem() {
+    private BankingSystem thereIsBankingSystem() {
         return new BankingSystem();
     }
 

@@ -1,10 +1,9 @@
 package pl.ppluta.creditcard;
 
-import com.sun.xml.internal.ws.api.message.ExceptionHasMessage;
-
 import java.math.BigDecimal;
 
 public class CreditCard {
+    private static final int CREDIT_LOW_LIMIT = 100;
     private final String cardNumber;
     private BigDecimal creditLimit;
     private BigDecimal balance;
@@ -15,15 +14,15 @@ public class CreditCard {
 
     public void assignCredit(BigDecimal creditLimit) {
         if (isBelowCreditLimit(creditLimit)) {
-            throw new IllegalStateException();
+            throw new CreditBelowLimitException();
         }
         this.creditLimit = creditLimit;
+        balance = creditLimit;
     }
 
     private boolean isBelowCreditLimit(BigDecimal creditLimit) {
-        return creditLimit.compareTo(BigDecimal.valueOf(100)) < 0;
+        return creditLimit.compareTo(BigDecimal.valueOf(CREDIT_LOW_LIMIT)) < 0;
     }
-
 
     public BigDecimal getCurrentLimit() {
         return creditLimit;
@@ -35,7 +34,7 @@ public class CreditCard {
 
     public void withdraw(BigDecimal money) {
         if (balance.compareTo(money) < 0) {
-            throw new IllegalStateException();
+            throw new NotEnoughMoneyException();
         }
         this.balance = balance.subtract(money);
     }
