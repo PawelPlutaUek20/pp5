@@ -2,7 +2,7 @@ package pl.ppluta.creditcard;
 
 import org.junit.jupiter.api.Test;
 
-public class BlablaTest {
+public class CreditCardApiTest {
     @Test
     public void itAllowsToHandleCreditCardWithdrawFromMultipleCards() {
         String cardNumber1 = thereIsCardWithLimitInTheSystem(1000);
