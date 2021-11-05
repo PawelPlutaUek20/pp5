@@ -38,4 +38,9 @@ public class CreditCard {
         }
         this.balance = balance.subtract(money);
     }
+
+
+    public String getNumber() {
+        return cardNumber;
+    }
 }

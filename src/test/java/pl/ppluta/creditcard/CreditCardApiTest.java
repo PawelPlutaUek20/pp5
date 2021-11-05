@@ -1,10 +1,22 @@
 package pl.ppluta.creditcard;
 
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Assertions;
+import  org.junit.jupiter.api.Test;
+
+import java.math.BigDecimal;
+import java.util.UUID;
+
+import static  org.junit.jupiter.api.Assertions.*;
 
 public class CreditCardApiTest {
+
+    private CreditCardPermanentMemory cardMemory;
+
     @Test
     public void itAllowsToHandleCreditCardWithdrawFromMultipleCards() {
+
+        thereIsCreditCardMemory();
+
         String cardNumber1 = thereIsCardWithLimitInTheSystem(1000);
         String cardNumber2 = thereIsCardWithLimitInTheSystem(2000);
 
@@ -18,13 +30,29 @@ public class CreditCardApiTest {
     }
 
     private BankingSystem thereIsBankingSystem() {
-        return new BankingSystem();
+        return new BankingSystem(cardMemory);
     }
 
-    private void balanceOfCardEquals(String cardNumber2, int i) {
+    private void balanceOfCardEquals(String cardNumber, int expectedBalance) {
+        CreditCard loaded = cardMemory.findByNumber(cardNumber)
+            .orElseGet(() -> new CreditCard(cardNumber));
+
+        assertEquals(BigDecimal.valueOf(expectedBalance), loaded.getBalance());
     }
 
-    private String thereIsCardWithLimitInTheSystem(int i) {
-        return "123456";
+    private String thereIsCardWithLimitInTheSystem(int creditLimit) {
+
+
+        CreditCard card = new CreditCard((UUID.randomUUID().toString()));
+        card.assignCredit(BigDecimal.valueOf(creditLimit));
+
+        cardMemory.save(card);
+
+        return card.getNumber();
+
+    }
+
+    private void thereIsCreditCardMemory() {
+        cardMemory = new CreditCardPermanentMemory();
     }
 }
