@@ -4,10 +4,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-public class CreditCardPermanentMemory implements CardMemory {
+public class CreditCardMemory implements CardMemory {
     Map<String, CreditCard> cards;
 
-    public CreditCardPermanentMemory() {
+    public CreditCardMemory() {
         this.cards = new HashMap<>();
     }
 

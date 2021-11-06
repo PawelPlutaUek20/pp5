@@ -1,6 +1,5 @@
 package pl.ppluta.creditcard;
 
-import org.junit.jupiter.api.Assertions;
 import  org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
@@ -10,7 +9,7 @@ import static  org.junit.jupiter.api.Assertions.*;
 
 public class CreditCardApiTest {
 
-    private CreditCardPermanentMemory cardMemory;
+    private CreditCardMemory cardMemory;
 
     @Test
     public void itAllowsToHandleCreditCardWithdrawFromMultipleCards() {
@@ -20,7 +19,7 @@ public class CreditCardApiTest {
         String cardNumber1 = thereIsCardWithLimitInTheSystem(1000);
         String cardNumber2 = thereIsCardWithLimitInTheSystem(2000);
 
-        BankingSystem system = thereIsBankingSystem();
+        CardApi system = thereIsBankingSystem();
 
         system.handleWithdraw(cardNumber1, 500);
         system.handleWithdraw(cardNumber2, 1000);
@@ -29,8 +28,8 @@ public class CreditCardApiTest {
         balanceOfCardEquals(cardNumber2, 1000);
     }
 
-    private BankingSystem thereIsBankingSystem() {
-        return new BankingSystem(cardMemory);
+    private CardApi thereIsBankingSystem() {
+        return new CardApi(cardMemory);
     }
 
     private void balanceOfCardEquals(String cardNumber, int expectedBalance) {
@@ -53,6 +52,6 @@ public class CreditCardApiTest {
     }
 
     private void thereIsCreditCardMemory() {
-        cardMemory = new CreditCardPermanentMemory();
+        cardMemory = new CreditCardMemory();
     }
 }
